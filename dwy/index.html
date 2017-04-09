@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			html {
+				font-size: 10px;
+				font-family: "微软雅黑";
+			}
+			
+			.content {
+				position: fixed;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+			}
+			
+			.header {
+				position: fixed;
+				top: 0;
+				height: 12rem;
+				width: 100%;
+			}
+			
+			.condition {
+				position: absolute;
+				top: 0;
+				width: 100%;
+				height: 9rem;
+			}
+			
+			.condition>.condition_item {
+				float: left;
+				width: 50%;
+				height: 100%;
+			}
+			
+			.condition>.condition_item>.condition_item_title {
+				width: 100%;
+				height: 5rem;
+				line-height: 5rem;
+				text-align: center;
+				color: rgb(0, 157, 237);
+				font-size: 1.6rem;
+			}
+			
+			.condition>.condition_item>.condition_item_date {
+				width: 100%;
+				height: 3rem;
+				text-align: center;
+				font-size: 1.6rem;
+			}
+			
+			.weekends {
+				position: absolute;
+				top: 9rem;
+				height: 3rem;
+				width: 100%;
+				background-color: rgb(0, 169, 255);
+			}
+			
+			.weekends_content {
+				height: 100%;
+				width: 20rem;
+				margin: 0 auto;
+			}
+			
+			.weekends_content_item {
+				float: left;
+				width: 14.28%;
+				height: 100%;
+				text-align: center;
+				line-height: 3rem;
+				color: white;
+				font-size: 1.4rem;
+			}
+			
+			.center {
+				position: absolute;
+				top: 12rem;
+				width: 100%;
+				bottom: 0;
+				overflow: auto;
+			}
+			
+			.center_content {
+				height: 100%;
+				width: 20rem;
+				margin: 0 auto;
+				
+			}
+			
+			.center_content_item {
+				width: 100%;
+			}
+			
+			.center_content_item_row {
+				height: 4rem;
+				line-height: 4rem;
+				text-align: center;
+			}
+			
+			.center_content_item_row_date {
+				float: left;
+				width: 14.28%;
+				height: 100%;
+				line-height: 4rem;
+				text-align: center;
+			}
+			
+			.center_content_item_row_date .container {
+				width: 2.2rem;
+				height: 2.2rem;
+				line-height: 2.2rem;
+				margin: 0 auto;
+				margin-top: 1.4rem;
+			}
+			
+			.center_content_item_row_date .container.selected {
+				border-radius: 50%;
+				background-color: rgb(255, 204, 0);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="header">
+				<div class="condition">
+					<div class="condition_item">
+						<div class="condition_item_title">
+							开始日期
+						</div>
+						<div class="condition_item_date">
+							2017年2月3号
+						</div>
+					</div>
+					<div class="condition_item">
+						<div class="condition_item_title">
+							结束日期
+						</div>
+						<div class="condition_item_date">
+							2017年2月3号
+						</div>
+					</div>
+				</div>
+				<div class="weekends">
+					<div class="weekends_content">
+						<div class="weekends_content_item">
+							日
+						</div>
+						<div class="weekends_content_item">
+							一
+						</div>
+						<div class="weekends_content_item">
+							二
+						</div>
+						<div class="weekends_content_item">
+							三
+						</div>
+						<div class="weekends_content_item">
+							四
+						</div>
+						<div class="weekends_content_item">
+							五
+						</div>
+						<div class="weekends_content_item">
+							六
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="center" onclick="aaa(this)" a="1">
+				<div class="center_content">
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		function aaa(obj){
+			alert($(obj).attr("a"));
+		}
+		
+		
+		$(function(){
+			getrili(2017,2);
+			
+			$("body").on("click",".container",function(){
+				$(this).toggleClass("selected");
+			});
+			
+			function getrili(year){
+				var domStr = '';
+				for(var j =0 ;j<12;j++){
+					var firstDay = new Date(year,j,1);
+					domStr += '<div class="center_content_item">';
+					domStr += '<div class="center_content_item_row">';
+					domStr += year + '年' + (j+1) + '月';
+					domStr += '</div>';
+					
+					var week = 0;
+					for(var i = 0;i<36;i++){
+						var day = new Date(year,j,i + 1 - firstDay.getDay());
+						
+						if(week == 7){
+							week = 0;
+						}
+						
+						if(week == 0)
+							domStr += '<div class="center_content_item_row">';
+							
+						domStr += '<div class="center_content_item_row_date">';
+						domStr += '<div class="container">';
+						if(day.getMonth() == j){
+							domStr += day.getDate();
+						}
+						domStr += '</div></div>';
+						if(week == 6)
+							domStr += '</div>';
+						
+						week++;
+						
+					}
+					
+					domStr += '</div>';
+				}
+				
+				
+				$(".center_content").html(domStr);
+			}
+		});
+	</script>
+
+</html>

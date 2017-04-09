@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>滑动菜单</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+			}
+			body{
+				background: url(image/slideMenu_bg_1.png) no-repeat;
+			}
+			#menu{
+				width: 55%;
+				color: #fff;
+			}
+			#menu .logo,
+			#menu .menu-show{
+				text-align: center;
+			}
+			#menu .logo{
+				margin-left: 20px;
+				margin-top: 30px;
+				font-size: 18px;
+			}
+			#menu .menu-show{
+				position: relative;
+				z-index: 3;
+				margin: 0 auto !important;
+				margin-top: 20px;
+				list-style: none;
+				font-size: 14px;
+			}
+			#menu .menu-show li{
+				position: relative;
+				left: -85%;
+				margin: 12px auto;
+				width: 60%;
+				padding: 5px;
+				border-radius: 2px;
+			}
+			#menu .menu-show li:hover{
+				background-color: rgba(190,228,244,0.4);
+			}
+			.con-box{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 2;
+				width: 100%;
+				height: 100%;
+				overflow-x: hidden;
+			}
+			.con{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 2;
+				width: 100%;
+				height: 100%;
+				/*top: 18%;
+				bottom: 18%;
+				left: 55%;
+				margin: auto;
+				width: 100%;
+				height: 82%;*/
+				background-color: #fff;
+				background-size: cover;
+			}
+			#menu-btn{
+				position: absolute;
+				top: 20px;
+				left: 15px;
+				padding: 3px 0;
+				width: 60px;
+				text-align: center;
+				border-radius: 2px;
+				color: #fff;
+				background-color: rgba(190,228,244,0.6);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="menu">
+			<div class="logo">__Dandelion</div>
+			<ul class="menu-show">
+				<li>北京赛车</li>
+				<li>重庆时时彩</li>
+				<li>幸运飞艇</li>
+				<li>广东快乐十分</li>
+				<li>幸运农场</li>
+				<li>六合彩</li>
+			</ul>
+		</div>
+		<div class="con-box">
+			<div class="con">
+				<div id="menu-btn">目录</div>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript" src="js/jquery-2.1.0.js" ></script>
+		<script>
+			$(function(){
+				var flag = true;
+				$('#menu-btn').click(function(e){
+					if(flag){
+						e.stopPropagation();
+						$('.con').css({
+							margin: 'auto',
+							'overflow-x':'hidden'
+						}).animate({
+							top: '18%',
+							bottom: '18%',
+							left:'55%',
+							width:'82%',
+							height:'82%'
+						},300,function(){
+							
+							$('.menu-show li').each(function(i){
+								var _this = $(this);
+								_this.animate({
+									left:'18%'
+								},300+i*120,function(){
+									$('.menu-show li').each(function(i){
+										var _this = $(this);
+										_this.animate({
+											left:0
+										},300);
+									});
+								});
+							});
+						});
+						flag = false;
+					}
+				});
+				$('.con').click(function(e){
+					flag = true;
+					e.preventDefault();
+					
+					$(this).animate({
+						top: 0,
+						left:0,
+						bottom:0,
+						width:'100%',
+						height:'100%'
+					},300);
+					$('.menu-show li').css('left','-85%');
+				});
+			});
+		</script>
+	</body>
+</html>
