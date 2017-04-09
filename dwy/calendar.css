@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	/*font-size: 14px;*/
+	
 }
 .fixed-box{
 	position: fixed;
@@ -11,11 +12,10 @@
 	background-color: #fff;
 }
 .header-box{
-	
 	width: 100%;
 	height: 50px;
 	line-height: 50px;
-	color: #222;
+	color: #444;
 	border-bottom: 1px solid #ccc;
 }
 .header-box .header-con{
@@ -40,7 +40,7 @@
 .main .main-head{
 	margin: 10px 0 5px 0;
 	/*color: #2aabfa;*/
-	font-size: 20px;
+	font-size: 18px;
 }
 .main .main-con{
 	width: 50%;
@@ -49,14 +49,14 @@
 }
 .main .main-foot,
 .main .main-foot span{
-	font-size: 18px;
+	font-size: 16px;
 }
 .main .main-foot{
 	margin-bottom: 5px;
 	color: #222;
 }
 .week-box{
-	margin-top: 8px;
+	/*margin-top: 8px;*/
 	height: 30px;
 	background-color:#2aabfa ;
 }
@@ -76,13 +76,17 @@
 	line-height: 30px;
 }
 .calendar{
-	margin-top: 175px;
+	margin-top: 170px;
 	font-size: 17px;
 	color: #666;
 }
 .calendar .calendar-head{
 	text-align: center;
 	margin-bottom: 10px;
+	font-size: 17px;
+}
+.calendar .calendar-head{
+	font-size: 17px;
 }
 .table-msg{
 	width: 280px;
@@ -103,14 +107,14 @@
 #notice{
 	display: none;
 	position: fixed;
-	top: 119px;
+	top: 121px;
 	z-index: 1000;
 	width: 100%;
 	height: 60px;
 	line-height: 60px;
 	text-align: center;
 	color: #fff;
-	background-color: #2aabfa;
+	background-color: rgba(42,171,250,0.8);
 }
 
 .footer-box{
@@ -118,8 +122,9 @@
 	bottom: 0;
 	z-index: 999;
 	width: 100%;
-	height: 35px;
-	line-height: 35px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 18px;
 	background-color: #FBC92E;
 	color: #fff;
 	text-align: center;

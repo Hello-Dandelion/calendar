@@ -110,18 +110,22 @@ $(function(){
 		var date = new Date();
 		var year = date.getFullYear();
 		var month = date.getMonth();
-		var isLeapYear = leapYear(year);
-		var month_lastDay = [31,28+isLeapYear,31,30,31,30,31,31,30,31,30,31];
+		var month_lastDay = [31,28+leapYear(year),31,30,31,30,31,31,30,31,30,31];
 		var day = date.getDate();
-		var active_day = String(year)+String(month)+String(day);
+		
 		//以当前月为最开始显示
 		$('.calendar-show:lt('+month+')').css('display','none');
 		
+		//默认设置开始时间和结束时间相差一天
 		$('.year').text(year);
-		$('.month').text(month+1);
-		$('.day:eq(0)').text(day);
-		$('.day:eq(1)').text(day+1);
+		$('.main-foot .month').text(month+1);
+		$('.main-foot:eq(0) .day').text(day);
+		$('.main-foot:eq(1) .day').text(day+1);
+		
+		//获取每个月号数占几行
 		var will_month_arr = [];
+		
+		//获取每个月1号是星期几
 		var firstDay_arr=[];
 		for(var i= month;i<12;i++){
 			$('.calendar .month:eq('+i+')').text(i+1);
@@ -132,19 +136,17 @@ $(function(){
 			var rows = Math.ceil((getFirstDay+month_lastDay[i])/7);
 			will_month_arr.push(rows);
 		}
+		
 		// 不同月的填充对应的行数
 		will_month_arr.forEach(function(value,index,arr){
 			for(var i= 0;i<arr[index];i++){
-//				var tr = document.createElement('tr');
 				var tr = $('<tr></tr>');
 				for(var j= 0;j<7;j++){
-					//var td = document.createElement('td');
 					var td = $('<td></td>');
 					tr.append(td);
 				}
-				var add_tr_num = 12-arr.length+index;
-				$('.table-msg:eq('+add_tr_num+')').append(tr);
-				
+				var table_num = 12-arr.length+index;
+				$('.table-msg:eq('+table_num+')').append(tr);
 			}
 			//如果该月的第一天在星期日
 			var _first = null;
@@ -153,16 +155,17 @@ $(function(){
 			}else{
 				_first = firstDay_arr[index]-1;
 			}
-			//填日期
-			$('.table-msg:eq('+add_tr_num+') tr td:gt('+_first+')').each(function(i){
-				if(i < month_lastDay[add_tr_num]){
+			//根据对应的月份填对应的日期
+			$('.table-msg:eq('+table_num+') tr td:gt('+_first+')').each(function(i){
+				if(i < month_lastDay[table_num]){
 					$(this).text(i+1);
 				}
 				//当前号数显示为高亮
-				if(add_tr_num == date.getMonth() && (i+1) == day){
+				var cur_month = date.getMonth();
+				if(table_num == cur_month && (i+1) == day){
 					$(this).addClass('active');
 				}
-				if(add_tr_num == date.getMonth() && (i+1) < day){
+				if(table_num == cur_month && (i+1) < day){
 					$(this).text(i+1).css('color','#ccc');
 				}
 			});
