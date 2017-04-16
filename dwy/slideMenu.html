@@ -9,11 +9,13 @@
 				margin: 0;
 				padding: 0;
 				font-family: "微软雅黑";
+				text-decoration: none;
 			}
 			body{
 				background: url(image/slideMenu_bg_1.png) no-repeat;
 			}
 			#menu{
+				display: none;
 				width: 55%;
 				color: #fff;
 			}
@@ -71,16 +73,23 @@
 				background-color: #fff;
 				background-size: cover;
 			}
-			#menu-btn{
+			#menu-btn,.return{
 				position: absolute;
-				top: 20px;
 				left: 15px;
 				padding: 3px 0;
-				width: 60px;
+				
 				text-align: center;
 				border-radius: 2px;
 				color: #fff;
 				background-color: rgb(190,228,244);
+			}
+			#menu-btn{
+				top: 20px;
+				width: 60px;
+			}
+			.return{
+				top: 80px;
+				width: 100px;
 			}
 			/*定义动画*/
 			@-webkit-keyframes menu{
@@ -119,6 +128,7 @@
 		<div class="con-box">
 			<div class="con">
 				<div id="menu-btn">目录</div>
+				<div class="return" onclick="location.href='index.html'">返回主页</div>
 			</div>
 		</div>
 		
@@ -130,6 +140,7 @@
 				$('#menu-btn').click(function(e){
 					if(flag){
 						e.stopPropagation();
+						$('#menu').css('display','block');
 						$('.con').css({
 							margin: 'auto',
 							'overflow-x':'hidden'
@@ -153,6 +164,7 @@
 				$('.con').click(function(e){
 					flag = true;
 					e.preventDefault();
+					$('#menu').css('display','none');
 					$(this).animate({
 						top: 0,
 						left:0,
